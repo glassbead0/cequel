@@ -8,6 +8,9 @@ require File.expand_path('../lib/cequel/version', __FILE__)
 
 RUBY_VERSIONS = YAML.load_file(File.expand_path('../.travis.yml', __FILE__))['rvm']
 
+# Don't push the gem to rubygems
+ENV["gem_push"] = "false" # Utilizes feature in bundler 1.3.0
+
 task :default => :release
 task :release => [
   :verify_changelog,
@@ -129,4 +132,12 @@ namespace :cassandra do
       end
     end
   end
+end
+
+# Let bundler's release task do its job, minus the push to Rubygems,
+# and after it completes, use "gem inabox" to publish the gem to our
+# internal gem server.
+Rake::Task["release"].enhance do
+  spec = Gem::Specification::load(Dir.glob("*.gemspec").first)
+  sh "gem push --host #{spec.metadata['allowed_push_host']} pkg/#{spec.name}-#{spec.version}.gem"
 end

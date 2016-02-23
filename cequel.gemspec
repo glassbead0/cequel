@@ -1,7 +1,7 @@
 require File.expand_path('../lib/cequel/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = 'cequel'
+  s.name = 'cequel-comv'
   s.version = Cequel::VERSION
   s.authors = [
     'Mat Brown', 'Aubrey Holland', 'Keenan Brock', 'Insoo Buzz Jung',

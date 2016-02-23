@@ -1,3 +1,7 @@
+## 1.7.1
+
+* limit size of logged field values
+
 ## 1.7.0
 
 * Support Cassandra up to 2.2
